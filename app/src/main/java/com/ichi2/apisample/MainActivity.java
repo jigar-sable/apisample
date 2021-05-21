@@ -6,10 +6,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ShareCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionProvider;
@@ -60,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
     }
 
 
-    public void onRequestPermissionsResult (int requestCode, @NonNull String[] permissions,
-                                            @NonNull int[] grantResults) {
-        if (requestCode==AD_PERM_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        if (requestCode == AD_PERM_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             addCardsToAnkiDroid(getSelectedData());
         } else {
             Toast.makeText(MainActivity.this, R.string.permission_denied, Toast.LENGTH_LONG).show();
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
         // Extract the selected data
         SparseBooleanArray checked = mListView.getCheckedItemPositions();
         List<Map<String, String>> selectedData = new ArrayList<>();
-        for (int i=0;i<checked.size();i++) {
+        for (int i = 0; i < checked.size(); i++) {
             if (checked.valueAt(i)) {
                 selectedData.add(mListData.get(checked.keyAt(i)));
             }
@@ -168,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
          *
          * @param context Context for accessing resources.
          */
-        public AnkiDroidActionProvider(Activity context,List<Map<String, String>> selectedData) {
+        public AnkiDroidActionProvider(Activity context, List<Map<String, String>> selectedData) {
             super(context);
             mSelectedData = selectedData;
         }
@@ -194,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             Resources res = getApplicationContext().getResources();
             // Add AnkiDroid "instant add" to the menu
             try {
-                ApplicationInfo appInfo = manager.getApplicationInfo(AddContentApi.getAnkiDroidPackageName(MainActivity.this),0);
+                ApplicationInfo appInfo = manager.getApplicationInfo(AddContentApi.getAnkiDroidPackageName(MainActivity.this), 0);
                 String label = manager.getApplicationLabel(appInfo) + " " + res.getString(R.string.instant_add);
                 subMenu.add(0, ANKIDROID_INSTANT_ADD, ANKIDROID_INSTANT_ADD, label)
                         .setIcon(appInfo.loadIcon(manager))
@@ -248,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
     /**
      * get the deck id
+     *
      * @return might be null if there was a problem
      */
     private Long getDeckId() {
@@ -261,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
     /**
      * get model id
+     *
      * @return might be null if there was an error
      */
     private Long getModelId() {
@@ -275,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
 
     /**
      * Use the instant-add API to add flashcards directly to AnkiDroid.
+     *
      * @param data List of cards to be added. Each card has a HashMap of field name / field value pairs.
      */
     private void addCardsToAnkiDroid(final List<Map<String, String>> data) {
@@ -292,9 +297,9 @@ public class MainActivity extends AppCompatActivity implements ActivityCompat.On
             return;
         }
         // Build list of fields and tags
-        LinkedList<String []> fields = new LinkedList<>();
+        LinkedList<String[]> fields = new LinkedList<>();
         LinkedList<Set<String>> tags = new LinkedList<>();
-        for (Map<String, String> fieldMap: data) {
+        for (Map<String, String> fieldMap : data) {
             // Build a field map accounting for the fact that the user could have changed the fields in the model
             String[] flds = new String[fieldNames.length];
             for (int i = 0; i < flds.length; i++) {

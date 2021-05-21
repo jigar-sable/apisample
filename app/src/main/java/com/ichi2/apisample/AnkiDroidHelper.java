@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.util.SparseArray;
 
 import com.ichi2.anki.api.AddContentApi;
@@ -40,6 +42,7 @@ public class AnkiDroidHelper {
     /**
      * Whether or not the API is available to use.
      * The API could be unavailable if AnkiDroid is not installed or the user explicitly disabled the API
+     *
      * @return true if the API is available to use
      */
     public static boolean isApiAvailable(Context context) {
@@ -58,8 +61,9 @@ public class AnkiDroidHelper {
 
     /**
      * Request permission from the user to access the AnkiDroid API (for SDK 23+)
+     *
      * @param callbackActivity An Activity which implements onRequestPermissionsResult()
-     * @param callbackCode The callback code to be used in onRequestPermissionsResult()
+     * @param callbackCode     The callback code to be used in onRequestPermissionsResult()
      */
     public void requestPermission(Activity callbackActivity, int callbackCode) {
         ActivityCompat.requestPermissions(callbackActivity, new String[]{READ_WRITE_PERMISSION}, callbackCode);
@@ -84,14 +88,15 @@ public class AnkiDroidHelper {
 
     /**
      * Remove the duplicates from a list of note fields and tags
-     * @param fields List of fields to remove duplicates from
-     * @param tags List of tags to remove duplicates from
+     *
+     * @param fields  List of fields to remove duplicates from
+     * @param tags    List of tags to remove duplicates from
      * @param modelId ID of model to search for duplicates on
      */
-    public void removeDuplicates(LinkedList<String []> fields, LinkedList<Set<String>> tags, long modelId) {
+    public void removeDuplicates(LinkedList<String[]> fields, LinkedList<Set<String>> tags, long modelId) {
         // Build a list of the duplicate keys (first fields) and find all notes that have a match with each key
         List<String> keys = new ArrayList<>(fields.size());
-        for (String[] f: fields) {
+        for (String[] f : fields) {
             keys.add(f[0]);
         }
         SparseArray<List<NoteInfo>> duplicateNotes = getApi().findDuplicateNotes(modelId, keys);
@@ -125,10 +130,11 @@ public class AnkiDroidHelper {
     /**
      * Try to find the given model by name, accounting for renaming of the model:
      * If there's a model with this modelName that is known to have previously been created (by this app)
-     *   and the corresponding model ID exists and has the required number of fields
-     *   then return that ID (even though it may have since been renamed)
+     * and the corresponding model ID exists and has the required number of fields
+     * then return that ID (even though it may have since been renamed)
      * If there's a model from #getModelList with modelName and required number of fields then return its ID
      * Otherwise return null
+     *
      * @param modelName the name of the model to find
      * @param numFields the minimum number of fields the model is required to have
      * @return the model ID or null if something went wrong
@@ -162,6 +168,7 @@ public class AnkiDroidHelper {
      * If there's no deck with deckName, but a ref to deckName is stored in SharedPreferences, and that deck exist in
      * AnkiDroid (i.e. it was renamed), then use that deck.Note: this deck will not be found if your app is re-installed
      * If there's no reference to deckName anywhere then return null
+     *
      * @param deckName the name of the deck to find
      * @return the did of the deck in Anki
      */
@@ -186,6 +193,7 @@ public class AnkiDroidHelper {
 
     /**
      * Get the ID of the deck which matches the name
+     *
      * @param deckName Exact name of deck (note: deck names are unique in Anki)
      * @return the ID of the deck that has given name, or null if no deck was found or API error
      */

@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** Some fields to store configuration details for AnkiDroid **/
+/**
+ * Some fields to store configuration details for AnkiDroid
+ **/
 final class AnkiDroidConfig {
     // Name of deck which will be created in AnkiDroid
     public static final String DECK_NAME = "API Sample";
@@ -17,8 +19,8 @@ final class AnkiDroidConfig {
     // Optional space separated list of tags to add to every note
     public static final Set<String> TAGS = new HashSet<>(Collections.singletonList("API_Sample_App"));
     // List of field names that will be used in AnkiDroid model
-    public static final String[] FIELDS = {"Expression","Reading","Meaning","Furigana","Grammar","Sentence",
-            "SentenceFurigana","SentenceMeaning"};
+    public static final String[] FIELDS = {"Expression", "Reading", "Meaning", "Furigana", "Grammar", "Sentence",
+            "SentenceFurigana", "SentenceMeaning"};
     // List of card names that will be used in AnkiDroid (one for each direction of learning)
     public static final String[] CARD_NAMES = {"Japanese>English", "English>Japanese"};
     // CSS to share between all the cards (optional). User will need to install the NotoSans font by themselves
